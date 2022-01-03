@@ -10,3 +10,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
     httr
+URL: https://github.com/can-taslicukur/tefasr
+BugReports: https://github.com/can-taslicukur/tefasr/issues
