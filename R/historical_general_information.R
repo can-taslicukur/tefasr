@@ -14,8 +14,8 @@
 #' @examples
 #' historical_general_information(
 #'     fund_type = "YAT",
-#'     start_date = as.Date('2021-10-01'),
-#'     end_date = as.Date('2021-10-01')
+#'     start_date = as.Date("2021-10-01"),
+#'     end_date = as.Date("2021-10-01")
 #' )
 historical_general_information <- function(
   fund_type = c("YAT","EMK","BYF"),
@@ -28,6 +28,10 @@ historical_general_information <- function(
 
   if (!inherits(start_date,"Date") | !inherits(end_date,"Date")) {
     stop("start_date and end_date must be Date objects.")
+  }
+
+  if (start_date > end_date) {
+    stop("start_date must be less than or equal to end_date!")
   }
 
   # tefas doesnt allow more than 90 days between start and and date
