@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package enables you to fetch historical data of public investment funds in Turkey from [Turkey Electronic Fund Trading Platform](http://www.fundturkey.com.tr). 
+This package enables you to fetch historical data of public investment funds in Turkey from [Turkey Electronic Fund Trading Platform](http://www.fundturkey.com.tr).  
 
 ## Installation
 

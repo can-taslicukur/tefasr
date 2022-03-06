@@ -13,7 +13,7 @@ Platform](http://www.fundturkey.com.tr).
 ## Installation
 
 You can install the development version of tefasr from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/can-taslicukur/tefasr) with:
 
 ``` r
 # install.packages("devtools")
