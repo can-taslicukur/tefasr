@@ -23,7 +23,8 @@ historical_general_information(
 
 \item{end_date}{End date for the historical data. Must be a Date object.}
 
-\item{fund_code}{(optional) Abbreviation for the desired fund. If \code{NULL}, it returns all of the funds for the given period.}
+\item{fund_code}{(optional) Abbreviation for the desired fund. If \code{NULL}, all of the funds for the given time period are returned.
+Complete list of funds traded in TEFAS can be found in \href{https://www.takasbank.com.tr/en/resources/tefas-mutual-funds}{takasbank website}}
 }
 \value{
 A data frame.
@@ -34,7 +35,7 @@ Get historical information for investing funds
 \examples{
 historical_general_information(
     fund_type = "YAT",
-    start_date = as.Date('2021-10-01'),
-    end_date = as.Date('2021-10-31')
+    start_date = as.Date("2021-10-01"),
+    end_date = as.Date("2021-10-01")
 )
 }

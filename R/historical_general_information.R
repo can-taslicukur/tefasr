@@ -6,7 +6,8 @@
 #' * `"BYF"` : Exchange Traded Funds
 #' @param start_date Start date for the historical data. Must be a Date object.
 #' @param end_date End date for the historical data. Must be a Date object.
-#' @param fund_code (optional) Abbreviation for the desired fund. If `NULL`, it returns all of the funds for the given period.
+#' @param fund_code (optional) Abbreviation for the desired fund. If `NULL`, all of the funds for the given time period are returned.
+#' Complete list of funds traded in TEFAS can be found in [takasbank website](https://www.takasbank.com.tr/en/resources/tefas-mutual-funds)
 #'
 #' @return A data frame.
 #' @export
@@ -34,7 +35,7 @@ historical_general_information <- function(
     stop("start_date must be less than or equal to end_date!")
   }
 
-  # tefas doesnt allow more than 90 days between start and and date
+  # tefas doesnt allow more than 90 days between start and and date so we can get data by chunks to bypass this
   date_chunks <- unique(c(seq(start_date, end_date, 90), end_date))
   if (length(date_chunks)==1) {
     date_chunks <- rep(date_chunks,2)
@@ -53,7 +54,7 @@ historical_general_information <- function(
 
     request <- httr::POST(
       url = "https://www.tefas.gov.tr/api/DB/BindHistoryInfo",
-      httr::user_agent(agent = "RTefas"),
+      httr::user_agent(agent = "https://github.com/can-taslicukur/tefasr"),
       httr::accept("application/json, text/javascript, */*; q=0.01"),
       httr::content_type("application/x-www-form-urlencoded; charset=UTF-8"),
       body = request_form_data,

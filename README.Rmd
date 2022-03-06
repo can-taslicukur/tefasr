@@ -22,7 +22,7 @@ This package enables you to fetch historical data of public investment funds in 
 
 ## Installation
 
-You can install the development version of tefasr from [GitHub](https://github.com/) with:
+You can install the development version of tefasr from [GitHub](https://github.com/can-taslicukur/tefasr) with:
 
 ``` r
 # install.packages("devtools")
