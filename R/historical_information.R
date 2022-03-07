@@ -1,5 +1,8 @@
 #' Get historical information for investing funds
 #'
+#' @param information_type Type of the information. Must be one of the following:
+#' * `"BindHistoryInfo"` : General information about a fund such as price, total value, number of traders
+#' * `"BindHistoryAllocation"` : Breakdown of a portfolio in percentage
 #' @param fund_type Type of the fund. Must be one of the following:
 #' * `"YAT"` : Securities Mutual Funds
 #' * `"EMK"` : Pension Funds
@@ -13,18 +16,20 @@
 #' @export
 #'
 #' @examples
-#' historical_general_information(
+#' historical_information(
+#'     information_type = "BindHistoryInfo",
 #'     fund_type = "YAT",
 #'     start_date = as.Date("2021-10-01"),
 #'     end_date = as.Date("2021-10-01")
 #' )
-historical_general_information <- function(
+historical_information <- function(
+  information_type = c("BindHistoryInfo","BindHistoryAllocation"),
   fund_type = c("YAT","EMK","BYF"),
   start_date,
   end_date,
   fund_code = NULL
 ){
-
+  information_type <- match.arg(information_type)
   fund_type <- match.arg(fund_type)
 
   if (!inherits(start_date,"Date") | !inherits(end_date,"Date")) {
@@ -34,6 +39,9 @@ historical_general_information <- function(
   if (start_date > end_date) {
     stop("start_date must be less than or equal to end_date!")
   }
+
+  domain <- "https://www.tefas.gov.tr/api/DB/"
+  endpoint <- paste0(domain,information_type)
 
   # tefas doesnt allow more than 90 days between start and and date so we can get data by chunks to bypass this
   date_chunks <- unique(c(seq(start_date, end_date, 90), end_date))
@@ -53,7 +61,7 @@ historical_general_information <- function(
     )
 
     request <- httr::POST(
-      url = "https://www.tefas.gov.tr/api/DB/BindHistoryInfo",
+      url = endpoint,
       httr::user_agent(agent = "https://github.com/can-taslicukur/tefasr"),
       httr::accept("application/json, text/javascript, */*; q=0.01"),
       httr::content_type("application/x-www-form-urlencoded; charset=UTF-8"),
@@ -62,7 +70,16 @@ historical_general_information <- function(
 
     request_content <- httr::content(request)
 
-    request_data <- do.call(rbind,lapply(request_content$data,as.data.frame))
+    request_data <- lapply(
+      request_content$data,
+      function(x){
+        as.list(
+          sapply(x,function(y){ifelse(is.null(y),NA,y)})
+          )
+        }
+      )
+
+    request_data <- do.call(rbind,lapply(request_data,as.data.frame))
 
     data_chunks <- append(data_chunks,list(request_data))
   }
