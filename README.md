@@ -27,7 +27,8 @@ within a date range like this.
 
 ``` r
 library(tefasr)
-dat <- historical_general_information(
+dat <- historical_information(
+  information_type = "BindHistoryInfo",
   fund_type = "YAT",
   start_date = as.Date("2021-10-01"),
   end_date = as.Date("2021-10-01")
