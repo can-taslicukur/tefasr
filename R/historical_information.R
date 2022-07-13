@@ -85,6 +85,9 @@ historical_information <- function(information_type = c("BindHistoryInfo", "Bind
   }
 
   data <- do.call(rbind, data_chunks)
+  data <- data[,-which(names(data)=="BORSABULTENFIYAT")]
+  data$TARIH <- as.Date(as.POSIXct(as.numeric(data$TARIH)/1000, origin = "1970-01-01"))
+  data[,c("FIYAT","TEDPAYSAYISI","KISISAYISI","PORTFOYBUYUKLUK")] <- sapply(data[,c("FIYAT","TEDPAYSAYISI","KISISAYISI","PORTFOYBUYUKLUK")], as.numeric)
 
   return(data)
 }

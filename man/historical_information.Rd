@@ -41,9 +41,9 @@ Get historical information for investing funds
 }
 \examples{
 historical_information(
-    information_type = "BindHistoryInfo",
-    fund_type = "YAT",
-    start_date = as.Date("2021-10-01"),
-    end_date = as.Date("2021-10-01")
+  information_type = "BindHistoryInfo",
+  fund_type = "YAT",
+  start_date = as.Date("2021-10-01"),
+  end_date = as.Date("2021-10-01")
 )
 }
